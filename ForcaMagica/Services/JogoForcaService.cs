@@ -7,6 +7,7 @@ public class JogoForcaService
     private readonly int _maxTentativas = 6;
     private Palavra _palavraAtual;
     private BancoDePalavrasService _bancoDePalavras;
+    private string _dificuldadeAtual;
 
     public JogoForcaService(BancoDePalavrasService bancoDePalavras)
     {
@@ -15,8 +16,28 @@ public class JogoForcaService
 
     public void IniciarNovoJogo()
     {
-        _palavraAtual = new Palavra(_bancoDePalavras.ObterPalavraAleatoria());
+        EscolherDificuldade();
+        _palavraAtual = new Palavra(_bancoDePalavras.ObterPalavraAleatoria(_dificuldadeAtual));
         ExecutarJogo();
+    }
+
+    private void EscolherDificuldade()
+    {
+        Console.Clear();
+        Console.WriteLine("Escolha o nível de dificuldade:");
+        var niveis = _bancoDePalavras.ObterNiveisDificuldade();
+        for (int i = 0; i < niveis.Count; i++)
+        {
+            Console.WriteLine($"{i + 1}. {niveis[i]}");
+        }
+
+        int escolha;
+        do
+        {
+            Console.Write("Digite o número correspondente à dificuldade desejada: ");
+        } while (!int.TryParse(Console.ReadLine(), out escolha) || escolha < 1 || escolha > niveis.Count);
+
+        _dificuldadeAtual = niveis[escolha - 1];
     }
 
     private void ExecutarJogo()
