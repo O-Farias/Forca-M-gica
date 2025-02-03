@@ -6,12 +6,14 @@ public class JogoForcaService
 {
     private readonly int _maxTentativas = 6;
     private Palavra _palavraAtual;
-    private BancoDePalavrasService _bancoDePalavras;
+    private readonly BancoDePalavrasService _bancoDePalavras;
     private string _dificuldadeAtual;
 
     public JogoForcaService(BancoDePalavrasService bancoDePalavras)
     {
         _bancoDePalavras = bancoDePalavras;
+        _dificuldadeAtual = _bancoDePalavras.ObterNiveisDificuldade().First();
+        _palavraAtual = new Palavra(_bancoDePalavras.ObterPalavraAleatoria(_dificuldadeAtual));
     }
 
     public void IniciarNovoJogo()
@@ -58,6 +60,7 @@ public class JogoForcaService
         Console.WriteLine($"\nPalavra: {_palavraAtual}");
         Console.WriteLine($"Letras erradas: {string.Join(", ", _palavraAtual.LetrasErradas)}");
         Console.WriteLine($"Tentativas restantes: {_maxTentativas - _palavraAtual.LetrasErradas.Count}");
+        Console.WriteLine($"Dificuldade: {_dificuldadeAtual}");
     }
 
     private void ProcessarTentativa()
