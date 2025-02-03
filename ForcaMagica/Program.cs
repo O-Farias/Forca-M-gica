@@ -8,8 +8,9 @@ public class Program
     static void Main(string[] args)
     {
         Console.WriteLine("=== Bem-vindo à Forca Mágica! ===\n");
-        
-        var jogoService = new JogoForcaService();
+
+        var bancoDePalavras = new BancoDePalavrasService();
+        var jogoService = new JogoForcaService(bancoDePalavras);
         bool jogarNovamente = true;
 
         while (jogarNovamente)
@@ -17,7 +18,7 @@ public class Program
             try
             {
                 jogoService.IniciarNovoJogo();
-                
+
                 Console.Write("\nDeseja jogar novamente? (S/N): ");
                 jogarNovamente = Console.ReadLine()?.ToUpper() == "S";
             }
