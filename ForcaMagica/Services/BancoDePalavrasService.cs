@@ -4,7 +4,7 @@ namespace ForcaMagica.Services;
 
 public class BancoDePalavrasService
 {
-    private List<string> _palavras;
+    private Dictionary<string, List<string>> _palavras = new();
 
     public BancoDePalavrasService()
     {
@@ -18,18 +18,32 @@ public class BancoDePalavrasService
         {
             PropertyNameCaseInsensitive = true
         };
-        var data = JsonSerializer.Deserialize<PalavrasData>(jsonString, options);
-        _palavras = data.Palavras;
+        var palavrasCarregadas = JsonSerializer.Deserialize<Dictionary<string, List<string>>>(jsonString, options);
+
+        if (palavrasCarregadas != null)
+        {
+            _palavras = palavrasCarregadas;
+        }
+        else
+        {
+            throw new InvalidOperationException("Não foi possível carregar as palavras do arquivo JSON.");
+        }
     }
 
-    public string ObterPalavraAleatoria()
+    public string ObterPalavraAleatoria(string dificuldade)
     {
-        Random random = new Random();
-        return _palavras[random.Next(_palavras.Count)];
-    }
-}
+        if (!_palavras.ContainsKey(dificuldade))
+        {
+            throw new ArgumentException("Nível de dificuldade inválido");
+        }
 
-public class PalavrasData
-{
-    public List<string> Palavras { get; set; }
+        var random = new Random();
+        int index = random.Next(_palavras[dificuldade].Count);
+        return _palavras[dificuldade][index];
+    }
+
+    public List<string> ObterNiveisDificuldade()
+    {
+        return _palavras.Keys.ToList();
+    }
 }
