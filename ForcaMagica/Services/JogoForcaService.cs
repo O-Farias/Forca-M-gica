@@ -4,26 +4,18 @@ namespace ForcaMagica.Services;
 
 public class JogoForcaService
 {
-    private readonly string[] _palavras = {
-        "PROGRAMACAO",
-        "DESENVOLVIMENTO",
-        "COMPUTADOR",
-        "JAVASCRIPT",
-        "PYTHON",
-        "CSHARP"
-    };
     private readonly int _maxTentativas = 6;
     private Palavra _palavraAtual;
-    private Random _random;
+    private BancoDePalavrasService _bancoDePalavras;
 
-    public JogoForcaService()
+    public JogoForcaService(BancoDePalavrasService bancoDePalavras)
     {
-        _random = new Random();
+        _bancoDePalavras = bancoDePalavras;
     }
 
     public void IniciarNovoJogo()
     {
-        _palavraAtual = new Palavra(_palavras[_random.Next(_palavras.Length)]);
+        _palavraAtual = new Palavra(_bancoDePalavras.ObterPalavraAleatoria());
         ExecutarJogo();
     }
 
@@ -91,7 +83,7 @@ public class JogoForcaService
 
     private void ExibirMensagemTentativa(bool acertou, char letra)
     {
-        Console.WriteLine(acertou 
+        Console.WriteLine(acertou
             ? $"\nMuito bem! A letra '{letra}' existe na palavra!"
             : $"\nOps! A letra '{letra}' não existe na palavra.");
         Thread.Sleep(1500);
