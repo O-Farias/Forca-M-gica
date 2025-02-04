@@ -101,24 +101,24 @@ public class JogoForcaService
         // Desenhar a base da forca
         for (int i = 0; i < 20; i++)
         {
-            canvas.SetPixel(i, 19, new Color(139, 69, 19)); // SaddleBrown
+            canvas.SetPixel(i, 19, new Color(139, 69, 19)); 
         }
 
         // Desenhar o poste vertical
         for (int i = 0; i < 18; i++)
         {
-            canvas.SetPixel(5, i, new Color(139, 69, 19)); // SaddleBrown
+            canvas.SetPixel(5, i, new Color(139, 69, 19)); 
         }
 
         // Desenhar o topo horizontal
         for (int i = 5; i < 15; i++)
         {
-            canvas.SetPixel(i, 0, new Color(139, 69, 19)); // SaddleBrown
+            canvas.SetPixel(i, 0, new Color(139, 69, 19)); 
         }
 
         // Desenhar a corda
-        canvas.SetPixel(14, 1, new Color(139, 69, 19)); // SaddleBrown
-        canvas.SetPixel(14, 2, new Color(139, 69, 19)); // SaddleBrown
+        canvas.SetPixel(14, 1, new Color(139, 69, 19)); 
+        canvas.SetPixel(14, 2, new Color(139, 69, 19)); 
 
         // Desenhar o boneco
         if (erros >= 1) // Cabeça
