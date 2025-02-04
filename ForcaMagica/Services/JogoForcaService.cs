@@ -121,12 +121,52 @@ public class JogoForcaService
         canvas.SetPixel(14, 2, new Color(139, 69, 19)); // SaddleBrown
 
         // Desenhar o boneco
-        if (erros >= 1) canvas.SetPixel(14, 3, Color.White); // Cabeça
-        if (erros >= 2) canvas.SetPixel(14, 4, Color.White); // Corpo
-        if (erros >= 3) canvas.SetPixel(13, 4, Color.White); // Braço esquerdo
-        if (erros >= 4) canvas.SetPixel(15, 4, Color.White); // Braço direito
-        if (erros >= 5) canvas.SetPixel(13, 5, Color.White); // Perna esquerda
-        if (erros >= 6) canvas.SetPixel(15, 5, Color.White); // Perna direita
+        if (erros >= 1) // Cabeça
+        {
+            for (int i = -1; i <= 1; i++)
+            {
+                for (int j = -1; j <= 1; j++)
+                {
+                    if (i != 0 || j != 0)
+                        canvas.SetPixel(14 + i, 3 + j, Color.White);
+                }
+            }
+        }
+        if (erros >= 2) // Corpo
+        {
+            for (int i = 4; i <= 7; i++)
+            {
+                canvas.SetPixel(14, i, Color.White);
+            }
+        }
+        if (erros >= 3) // Braço esquerdo
+        {
+            for (int i = 0; i <= 2; i++)
+            {
+                canvas.SetPixel(13 - i, 5 + i, Color.White);
+            }
+        }
+        if (erros >= 4) // Braço direito
+        {
+            for (int i = 0; i <= 2; i++)
+            {
+                canvas.SetPixel(15 + i, 5 + i, Color.White);
+            }
+        }
+        if (erros >= 5) // Perna esquerda
+        {
+            for (int i = 0; i <= 2; i++)
+            {
+                canvas.SetPixel(13 - i, 8 + i, Color.White);
+            }
+        }
+        if (erros >= 6) // Perna direita
+        {
+            for (int i = 0; i <= 2; i++)
+            {
+                canvas.SetPixel(15 + i, 8 + i, Color.White);
+            }
+        }
 
         AnsiConsole.Write(canvas);
     }
